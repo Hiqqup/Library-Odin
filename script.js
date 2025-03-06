@@ -14,10 +14,7 @@ const domElements = {
         bookHtml += `<input type="number" class="currentPage" value="${book.currentPage}" onchange="updateBook('${book.id}')"></input>`
         bookHtml += `<p>Reading Progress:</p><progress class="readingProgress" value="${ book.currentPage/ book.pages }"></progress>`
         bookHtml += `<div class="imageContainer">`
-        if(book.uploadedCover|| book.cover.type && book.cover.type.split("/")[0] === "image"){
-            book.uploadedCover = true;
-            storeChange();
-        }else{
+        if(!book.uploadedCover){
             bookHtml+=`<svg class="default-preview" xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 -960 960 960" width="100px" fill="#000000"><path d="M229-59q-35.78 0-63.39-26.91Q138-112.83 138-150v-660q0-37.59 27.61-64.79Q193.22-902 229-902h502q36.19 0 64.09 27.21Q823-847.59 823-810v660q0 37.17-27.91 64.09Q767.19-59 731-59H229Zm0-91h502v-660h-50v266l-97-56-97 56v-266H229v660Zm0 0v-660 660Zm258-394 97-56 97 56-97-56-97 56Z"/></svg>`
         }
         bookHtml += `</div>`
@@ -89,7 +86,7 @@ function Book(bookData){
     }
     this.read = false;
     this.currentPage = 0;
-    this.uploadedCover = false;
+    this.uploadedCover = this.cover.type && this.cover.type.split("/")[0] === "image";
     this.id = crypto.randomUUID();
     this.info = function(){
         const readOrNot = this.read ? "read" : "not read"
