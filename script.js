@@ -80,7 +80,8 @@ function updateBook(bookId){
 function storeChange(){
     localStorage.setItem("library", JSON.stringify(library));
 }
-function Book(bookData){
+class Book{
+ constructor(bookData){
     for(const pair  of bookData.entries()){
         this[pair[0]] = pair[1];
     }
@@ -93,6 +94,7 @@ function Book(bookData){
         return this.title + " by " + this.author + ", " + this.pages + ", " + readOrNot + "."
     }
 };
+}
 function addBook(bookData){
     const book = new Book(bookData);
     library[book.id] = book;
